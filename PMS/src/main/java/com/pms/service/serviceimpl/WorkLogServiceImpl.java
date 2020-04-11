@@ -2,13 +2,18 @@ package com.pms.service.serviceimpl;
 
 import java.util.*;
 
+import org.junit.Test;
+
+import com.pms.dao.WorkLogMapper;
 import com.pms.entity.WorkLog;
 import com.pms.service.WorkLogService;
+import com.pms.util.*;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 public class WorkLogServiceImpl implements WorkLogService {
+	private WorkLogMapper workLogMapper=MapperUtil.getSqlSession().getMapper(WorkLogMapper.class);
 	
 	@Override
 	public JSONArray findWorkLogById() {
@@ -21,6 +26,15 @@ public class WorkLogServiceImpl implements WorkLogService {
 		}
 		jsb = JSONArray.fromObject(lists);
 		return jsb;
+	}
+	@Test
+	public void test() {
+		getAllWorkLog();
+	}
+	@Override
+	public List<WorkLog> getAllWorkLog() {
+		System.out.println(workLogMapper.getAllWorkLog());
+		return null;
 	}
 	
 }
