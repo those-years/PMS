@@ -4,7 +4,7 @@
   <artifactId>PMS</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
-  <build>
+ <build>
 	    <plugins>
 	      <plugin>
 	        <artifactId>maven-compiler-plugin</artifactId>
@@ -17,12 +17,12 @@
 	      <plugin>
 	        <artifactId>maven-war-plugin</artifactId>
 	        <version>3.0.0</version>
-	        <configuration>
-	          <warSourceDirectory>WebContent</warSourceDirectory>
+	        <configuration>	       
+	            <warSourceDirectory>webapp</warSourceDirectory>  
 	        </configuration>
 	      </plugin>
 	    </plugins>
-	</build>
+</build>
  	<dependencies>
  		<dependency>
             <groupId>net.sf.json-lib</groupId>
