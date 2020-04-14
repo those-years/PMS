@@ -15,18 +15,22 @@ public class JsonUtil {
 		try {
 			out = response.getWriter();
 			out.println("{\"flag\":true,\n\"data\":[");
-			for (int i = 0; i < jsonArray.size(); i++) {
-				JSONObject object = (JSONObject) jsonArray.get(i); // 将array中的数据进行逐条转换
-				//out.println(object+",");
-				if(i < jsonArray.size()-1) {
-					out.println(object+",");
+			if(jsonArray.size()>0) {
+				for (int i = 0; i < jsonArray.size(); i++) {
+					JSONObject object = (JSONObject) jsonArray.get(i); // 将array中的数据进行逐条转换
+					//out.println(object+",");
+					if(i < jsonArray.size()-1) {
+						out.println(object+",");
+					}
+					
+					if(i+1==jsonArray.size()) {
+						out.println(object);
+						out.println("]}");
+						return;
+					}
 				}
-				
-				if(i+1==jsonArray.size()) {
-					out.println(object);
-					out.println("]}");
-					return;
-				}
+			}else {
+				out.println("]}");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -21,15 +21,17 @@ public class WorkLogServiceImpl implements WorkLogService {
 		List<WorkLog> lists = new ArrayList<>();
 		WorkLog workLog;
 		for(int i=0; i<4 ;i++) {
-			workLog = new WorkLog("1", "1","1", "1","1");
-			lists.add(workLog);
+			workLog = workLogMapper.getWorkLogById("11758");
+			if(workLog!=null) {
+				lists.add(workLog);
+			}
 		}
 		jsb = JSONArray.fromObject(lists);
 		return jsb;
 	}
 	@Test
 	public void test() {
-		getAllWorkLog();
+		System.out.println(findWorkLogById().size());
 	}
 	@Override
 	public List<WorkLog> getAllWorkLog() {

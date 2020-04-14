@@ -7,5 +7,9 @@
 	<select id="getAllWorkLog" resultType="com.pms.entity.WorkLog">
 		select * from worklog
 	</select>
-
+	 
+	<!-- public WorkLog getWorkLogById(String logid); -->
+	<select id="getWorkLogById" resultType="com.pms.entity.WorkLog">
+		select * from worklog where logid = #{logid}
+	</select>
 </mapper>
