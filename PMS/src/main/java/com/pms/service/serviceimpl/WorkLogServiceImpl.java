@@ -14,29 +14,81 @@ import net.sf.json.JSONObject;
 
 public class WorkLogServiceImpl implements WorkLogService {
 	private WorkLogMapper workLogMapper=MapperUtil.getSqlSession().getMapper(WorkLogMapper.class);
-	
+	/**
+	* @author:  ljx
+	* @methodsName: findWorkLogById
+	* @description: 返回某一页的工作日志
+	* @param:  String workLogId
+	* @return: JSONArray
+	* @Time:   2020-4-19 15:02:29
+	* @throws: 
+	*/
 	@Override
-	public JSONArray findWorkLogById() {
+	public JSONArray findWorkLogById(String workLogId) {
 		JSONArray jsb;
-		List<WorkLog> lists = new ArrayList<>();
 		WorkLog workLog;
-		for(int i=0; i<4 ;i++) {
-			workLog = workLogMapper.getWorkLogById("11758");
-			if(workLog!=null) {
-				lists.add(workLog);
-			}
+		workLog = workLogMapper.getWorkLogById(workLogId);
+		if(workLog!=null) {
+			jsb = JSONArray.fromObject(workLog);
+			return jsb;
 		}
-		jsb = JSONArray.fromObject(lists);
+		return null;
+	}
+
+	
+	@Test
+	public void testGetPage() {
+		System.out.println(getWorkLogPage("1","3"));
+	}
+	/**
+	* @author:  ljx
+	* @methodsName: getAllWorkLog
+	* @description: 返回某一页的工作日志
+	* @param:  String pageNunmber, String pageSize
+	* @return: String
+	* @Time:   2020-4-19 15:02:29
+	* @throws: 
+	*/
+	@Override
+	public JSONArray getWorkLogPage(String pageNunmber, String pageSize) {
+		List<WorkLog> workLogs = workLogMapper.getAllWorkLog();
+		List<Object> lists = new ArrayList<>();
+		for(WorkLog workLog : workLogs) {
+			lists.add(workLog);
+		}
+		JSONArray jsb = PageUtil.createPage(lists,pageNunmber,pageSize);
 		return jsb;
 	}
 	@Test
-	public void test() {
-		System.out.println(findWorkLogById().size());
+	public void testaddWorkLog() {
+		WorkLog workLog = new WorkLog(null, "1", "1", "1", "1");
+		addWorkLog(workLog);
 	}
+	/**
+	* @author:  ljx
+	* @methodsName: addWorkLog
+	* @description: 增加工作日志
+	* @param:  WorkLog workLog
+	* @return: JSONArray
+	* @Time:   2020-4-19 15:10:11
+	* @throws: 
+	*/
 	@Override
-	public List<WorkLog> getAllWorkLog() {
-		System.out.println(workLogMapper.getAllWorkLog());
+	public JSONArray addWorkLog(WorkLog workLog) {
+		//创建日志id
+		String workLogId = RandomIdFactory.getWorkLogId();
+		//创建的日志id存在时重新创建
+		while(workLogMapper.getWorkLogById(workLogId)!=null) {
+			workLogId = RandomIdFactory.getWorkLogId();
+		}
+		workLog.setLogId(workLogId);
+		Boolean flag = workLogMapper.addWorkLog(workLog);
+		if(flag) {
+			//写入成功返回成功信息
+			JSONArray jsb = JSONArray.fromObject(workLog);
+			return jsb;
+		}
+		//写入失败，返回失败信息
 		return null;
 	}
-	
 }

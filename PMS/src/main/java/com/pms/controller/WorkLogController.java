@@ -21,15 +21,20 @@ public class WorkLogController extends HttpServlet{
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String requestURI = request.getRequestURI();
 		if(requestURI.equals("/PMS/WorkLog/getWorkLogById")) {
-			JsonUtil.returnJson(workLogServiceimpl.findWorkLogById(), request, response);
+			//http://localhost:8080/PMS/WorkLog/getWorkLogById?workLogId=1
+			String workLogId = request.getParameter("workLogId");
+			JsonUtil.returnJson(workLogServiceimpl.findWorkLogById(workLogId), request, response);
 		}else if(requestURI.equals("/PMS/WorkLog/getAllWorkLog")) {
-			JsonUtil.returnJson(workLogServiceimpl.findWorkLogById(), request, response);
+			
 		}else if(requestURI.equals("/PMS/WorkLog/delWorkLogById")) {
-			JsonUtil.returnJson(workLogServiceimpl.findWorkLogById(), request, response);
+			
 		}else if(requestURI.equals("/PMS/WorkLog/updateWorkLog")) {
-			JsonUtil.returnJson(workLogServiceimpl.findWorkLogById(), request, response);
-		}else if(requestURI.equals("/PMS/WorkLog/addWorkLog")) {
-			JsonUtil.returnJson(workLogServiceimpl.findWorkLogById(), request, response);
+			
+		}else if(requestURI.equals("/PMS/WorkLog/getWorkLogPage")) {
+			//http://localhost:8080/PMS/WorkLog/getWorkLogPage?pageNunmber=1&pageSize=3
+			String pageNunmber = request.getParameter("pageNunmber");
+			String pageSize = request.getParameter("pageSize");
+			JsonUtil.returnJson(workLogServiceimpl.getWorkLogPage(pageNunmber,pageSize), request, response);
 		}
 		
 	}

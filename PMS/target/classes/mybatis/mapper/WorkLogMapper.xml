@@ -12,4 +12,9 @@
 	<select id="getWorkLogById" resultType="com.pms.entity.WorkLog">
 		select * from worklog where logid = #{logid}
 	</select>
+	<!-- public void addWorkLog(WorkLog workLog); -->
+	<insert id="addWorkLog" parameterType="com.pms.entity.WorkLog">
+		insert into worklog(logId,studentNo,commitTime,title,content) 
+		VALUES(#{logId},#{studentNo},#{commitTime},#{title},#{content})
+	</insert>
 </mapper>

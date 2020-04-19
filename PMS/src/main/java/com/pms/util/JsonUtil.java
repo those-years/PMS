@@ -15,7 +15,7 @@ public class JsonUtil {
 		try {
 			out = response.getWriter();
 			out.println("{\"flag\":true,\n\"data\":[");
-			if(jsonArray.size()>0) {
+			if(jsonArray!=null) {
 				for (int i = 0; i < jsonArray.size(); i++) {
 					JSONObject object = (JSONObject) jsonArray.get(i); // 将array中的数据进行逐条转换
 					//out.println(object+",");

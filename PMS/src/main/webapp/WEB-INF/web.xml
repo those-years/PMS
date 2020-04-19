@@ -35,7 +35,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>WorkLogadd</servlet-name>
-		<url-pattern>/WorkLog/addWorkLog</url-pattern>
+		<url-pattern>/WorkLog/getWorkLogPage</url-pattern>
 	</servlet-mapping>
 	<!--↑工作日志 ↑-->
 </web-app>
